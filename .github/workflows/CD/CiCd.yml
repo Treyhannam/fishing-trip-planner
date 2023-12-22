@@ -55,3 +55,7 @@ jobs:
   
       - name: Deploy Functions
         run: python snowflake_deployment.py
+        env:
+          ACCOUNT: ${{ secrets.ACCOUNT }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          USER: ${{ secrets.USER }}
