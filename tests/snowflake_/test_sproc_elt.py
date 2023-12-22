@@ -2,7 +2,7 @@ import os
 import pytest
 import pandas as pd
 from unittest.mock import Mock
-from src.snowflake_db import elt
+from src.snowflake_ import sproc_elt
 
 def test_combine_trout_tables():
 
@@ -44,7 +44,7 @@ def test_combine_trout_tables():
 
     mock_session.sql.side_effect = mock_sql
 
-    elt.combine_trout_tables(mock_session)
+    sproc_elt.combine_trout_tables(mock_session)
 
     third_call = """
     create or replace table STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
