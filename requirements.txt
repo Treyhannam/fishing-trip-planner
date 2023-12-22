@@ -1,0 +1,5 @@
+playwright
+snowflake-snowpark-python[pandas]
+pytest
+black
+thefuzz

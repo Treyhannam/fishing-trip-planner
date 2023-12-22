@@ -1,0 +1,12 @@
+Water: Arthur Lake
+County: Chaffee
+Property name: San Isabel National Forest
+Fish species:
+Trout: Cutthroat
+Trout: Golden
+Ease of access: Difficult
+Boating: None
+Fishing pressure: Low
+Stocked: No
+Driving directions
+Elevation(ft): 1,000

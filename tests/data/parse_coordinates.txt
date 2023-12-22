@@ -1,0 +1,1 @@
+NAD83 UTM Zone 13N: 384447, 4273326Latitude: 38.60092 N    Longitude: -106.32702 W    Decimal Degrees

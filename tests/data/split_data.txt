@@ -1,0 +1,50 @@
+Arthur LakeXXXX
+Special Fishing Regulations (lake)
+Water: Arthur Lake
+Fishing regulations:
+The bag and possession limit for lake trout and/or splake is three fish, only one of which may be greater than 26 inches in length.
+
+
+Fishing Information Point
+Water: False Data
+County: Chaffee
+Property name: San Isabel National Forest
+Fish species:
+Trout: Wrong
+Ease of access: Difficult
+Boating: None
+Fishing pressure: Low
+Stocked: No
+Driving directions
+
+
+Fishing Information Point
+Water: Arthur Lake
+County: Chaffee
+Property name: San Isabel National Forest
+Fish species:
+Trout: Cutthroat
+Trout: Golden
+Ease of access: Difficult
+Boating: None
+Fishing pressure: Low
+Stocked: No
+Driving directions
+Elevation(ft): 1,000
+
+Fishing Information Point
+Water: False Data
+County: Chaffee
+Property name: San Isabel National Forest
+Fish species:
+Trout: Wrong
+Ease of access: Difficult
+Boating: None
+Fishing pressure: Low
+Stocked: No
+Driving directions
+Elevation(ft): 1,111
+
+
+Zoom to
+NAD83 UTM Zone 13N: 384447, 4273326Latitude: 38.60092 N    Longitude: -106.32702 W    Decimal Degrees
