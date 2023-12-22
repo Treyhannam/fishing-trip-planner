@@ -27,12 +27,17 @@ working_directory = os.getcwd()
 snowflake_folder = os.path.join(working_directory, "src\\snowflake_")
 
 # Connec to the db
-config_file_path = os.path.join(working_directory, "config.json")
+# config_file_path = os.path.join(working_directory, "config.json")
 
-with open(config_file_path, "r") as config_file:
-    config_data = json.load(config_file)
+# with open(config_file_path, "r") as config_file:
+#     config_data = json.load(config_file)
 
-builder_obj = Session.builder.configs(config_data)
+builder_obj = Session.builder.configs({
+    "account" : os.environ.get('ACCOUNT'),
+    "user" :  os.environ.get('USER'),
+    "password" :  os.environ.get('PASSWORD'),
+}
+)
 
 with builder_obj.create() as session:
     # Create stage if it does not exist
