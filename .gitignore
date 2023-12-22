@@ -156,4 +156,4 @@ cython_debug/
 .ipynb
 
 # Config file
-config.json
+*.json
