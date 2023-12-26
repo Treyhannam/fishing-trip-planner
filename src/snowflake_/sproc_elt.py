@@ -88,5 +88,5 @@ def combine_trout_tables(session: Session) -> str:
         table_insert_result = session.sql(insert_statement).collect()
 
         logger.info(f"Wrote {table_insert_result[0][0]} rows from table: {table_name}")
-        
+
     return "Done :D "
