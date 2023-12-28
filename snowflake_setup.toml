@@ -1,14 +1,5 @@
 [[procedures]]
-fname = "test_function.py"
-function_name = "main"
-procedure_name = ["STORAGE_DATABASE", "CPW_DATA", "test2"]
-packages=[
-            "snowflake-snowpark-python",
-            "pandas"
-        ]
-
-[[procedures]]
-fname = "sproc_elt.py"
+fname = "combine_trout_data.py"
 function_name = "combine_trout_tables"
 procedure_name = ["STORAGE_DATABASE", "CPW_DATA", "sproc_elt"]
 packages=[
