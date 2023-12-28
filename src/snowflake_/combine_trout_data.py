@@ -20,9 +20,13 @@ def combine_trout_tables(session: Session) -> str:
     a new table to store all the data, add a main species column do note the primary species for each row, and insert
     the data from each species table.
     """
-    truncate_result = session.sql("truncate STORAGE_DATABASE.CPW_DATA.ALL_SPECIES").collect()
+    truncate_result = session.sql(
+        "truncate STORAGE_DATABASE.CPW_DATA.ALL_SPECIES"
+    ).collect()
 
-    logger.info(f"Wrote {truncate_result[0][0]} rows from STORAGE_DATABASE.CPW_DATA.ALL_SPECIES")
+    logger.info(
+        f"Wrote {truncate_result[0][0]} rows from STORAGE_DATABASE.CPW_DATA.ALL_SPECIES"
+    )
 
     infomation_schema_df = session.sql(
         """
@@ -37,7 +41,6 @@ def combine_trout_tables(session: Session) -> str:
 
     # Start inserting all the data and populate the Main Species column
     for table_name in infomation_schema_df.TABLE_NAME:
-
         insert_statement = f"""
         INSERT INTO STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
             "main_species",
