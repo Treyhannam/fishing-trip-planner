@@ -19,11 +19,7 @@ def test_combine_trout_tables():
             {
                 "TABLE_NAME" : ["Trout: Brook"]
             }
-        ),
-    'DESC TABLE STORAGE_DATABASE.CPW_DATA."Trout: Brook"': {
-            "name" : ["Fish Species", "Water"],
-            "type" : ["VARCHAR(16777216)", "VARCHAR(16777216)"]
-        }
+        )
     }
 
     class SQLResult:
@@ -46,31 +42,39 @@ def test_combine_trout_tables():
 
     combine_trout_data.combine_trout_tables(mock_session)
 
-    third_call = """
-    create or replace table STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
-        DIM_ALL_SPECIES_ID NUMBER(38, 0) autoincrement start 0 increment by 1,
-        "Main Species" VARCHAR(250),
-        "Fish Species" VARCHAR(16777216),
-        "Water" VARCHAR(16777216)
-    )
-    """
-
-    fourth_call = """
+    second_call = """
         INSERT INTO STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
             "Main Species",
-            "Fish Species",
-            "Water"
+            "Fish Species ",
+            "Water",
+            "County",
+            "Property name",
+            "Ease of access",
+            "Boating",
+            "Fishing pressure",
+            "Stocked",
+            "Elevation(ft)",
+            "Latitude",
+            "Longitude"
         )
 
         select
-            'Brook' as "Main Species",
-            "Fish Species",
-            "Water"
+            'Brook' as "Main Species",          
+            "Fish Species ",
+            "Water",
+            "County",
+            "Property name",
+            "Ease of access",
+            "Boating",
+            "Fishing pressure",
+            "Stocked",
+            "Elevation(ft)",
+            "Latitude",
+            "Longitude"
         FROM STORAGE_DATABASE.CPW_DATA."Trout: Brook"
-    """
+        """
 
     def remove_newline_and_tab_chars(x: str):
         return ' '.join(x.split())
 
-    assert remove_newline_and_tab_chars(mock_session.sql.call_args_list[2][0][0]) == remove_newline_and_tab_chars(third_call)
-    assert remove_newline_and_tab_chars(mock_session.sql.call_args_list[3][0][0]) == remove_newline_and_tab_chars(fourth_call)
+    assert remove_newline_and_tab_chars(mock_session.sql.call_args_list[2][0][0]) == remove_newline_and_tab_chars(second_call)
