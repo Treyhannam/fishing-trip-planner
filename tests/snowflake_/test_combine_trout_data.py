@@ -44,22 +44,22 @@ def test_combine_trout_tables():
 
     second_call = """
         INSERT INTO STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
-            "Main Species",
-            "Fish Species ",
-            "Water",
-            "County",
-            "Property name",
-            "Ease of access",
-            "Boating",
-            "Fishing pressure",
-            "Stocked",
-            "Elevation(ft)",
-            "Latitude",
-            "Longitude"
+            "main_species",
+            "fish_species",
+            "water",
+            "county",
+            "property_name",
+            "ease_of_access",
+            "boating",
+            "fishing_pressure",
+            "stocked",
+            "elevation(ft)",
+            "latitude",
+            "longitude"
         )
 
         select
-            'Brook' as "Main Species",          
+            'Brook' as "main_species",          
             "Fish Species ",
             "Water",
             "County",
@@ -76,5 +76,8 @@ def test_combine_trout_tables():
 
     def remove_newline_and_tab_chars(x: str):
         return ' '.join(x.split())
+    
+    print(remove_newline_and_tab_chars(second_call))
+    print(remove_newline_and_tab_chars(mock_session.sql.call_args_list[2][0][0]))
 
     assert remove_newline_and_tab_chars(mock_session.sql.call_args_list[2][0][0]) == remove_newline_and_tab_chars(second_call)

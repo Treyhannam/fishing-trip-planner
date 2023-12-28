@@ -40,22 +40,22 @@ def combine_trout_tables(session: Session) -> str:
 
         insert_statement = f"""
         INSERT INTO STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
-            "Main Species",
-            "Fish Species ",
-            "Water",
-            "County",
-            "Property name",
-            "Ease of access",
-            "Boating",
-            "Fishing pressure",
-            "Stocked",
-            "Elevation(ft)",
-            "Latitude",
-            "Longitude"
+            "main_species",
+            "fish_species",
+            "water",
+            "county",
+            "property_name",
+            "ease_of_access",
+            "boating",
+            "fishing_pressure",
+            "stocked",
+            "elevation(ft)",
+            "latitude",
+            "longitude"
         )
 
         select
-            '{table_name.replace("Trout: ", "")}' as "Main Species",
+            '{table_name.replace("Trout: ", "")}' as "main_species",
             "Fish Species ",
             "Water",
             "County",
