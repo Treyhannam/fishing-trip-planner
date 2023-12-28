@@ -74,7 +74,7 @@ class SnowflakeDfWriter:
                 database=database,
                 schema=schema,
                 parallel=4,
-                auto_create_table=True,
+                auto_create_table=False,
                 overwrite=overwrite,
                 table_type="",
             )
