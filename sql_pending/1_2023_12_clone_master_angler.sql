@@ -1,0 +1,1 @@
+create temp table STORAGE_DATABASE.CPW_DATA.MASTER_ANGLER_AWARD_TEMP clone sessions
