@@ -55,6 +55,7 @@ def combine_trout_tables(session: Session) -> str:
 
     create_statement = f"""
     create or replace table STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
+        DIM_ALL_SPECIES_ID NUMBER(38, 0) autoincrement start 0 increment by 1,
         {name_and_dtype_with_syntax}
     )
     """

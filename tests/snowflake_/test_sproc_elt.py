@@ -2,7 +2,7 @@ import os
 import pytest
 import pandas as pd
 from unittest.mock import Mock
-from src.snowflake_ import sproc_elt
+from src.snowflake_ import combine_trout_data
 
 def test_combine_trout_tables():
 
@@ -44,10 +44,11 @@ def test_combine_trout_tables():
 
     mock_session.sql.side_effect = mock_sql
 
-    sproc_elt.combine_trout_tables(mock_session)
+    combine_trout_data.combine_trout_tables(mock_session)
 
     third_call = """
     create or replace table STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
+        DIM_ALL_SPECIES_ID NUMBER(38, 0) autoincrement start 0 increment by 1,
         "Main Species" VARCHAR(250),
         "Fish Species" VARCHAR(16777216),
         "Water" VARCHAR(16777216)
