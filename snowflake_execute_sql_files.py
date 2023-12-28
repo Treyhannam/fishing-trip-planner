@@ -43,7 +43,11 @@ with builder_obj.create() as session:
     # Execute one time queries
     for file in files:
 
-        # read
+        logger.info(
+            f"Starting file... {file}"
+        )
+
+        # read and run files
         fpath = os.path.join(pending_folder, file)
 
         with open(fpath, mode='r') as sql_script:
