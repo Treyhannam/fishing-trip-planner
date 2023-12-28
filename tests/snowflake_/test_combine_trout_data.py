@@ -2,7 +2,7 @@ import os
 import pytest
 import pandas as pd
 from unittest.mock import Mock
-from src.snowflake_ import sproc_elt
+from src.snowflake_ import combine_trout_data
 
 def test_combine_trout_tables():
 
@@ -19,11 +19,7 @@ def test_combine_trout_tables():
             {
                 "TABLE_NAME" : ["Trout: Brook"]
             }
-        ),
-    'DESC TABLE STORAGE_DATABASE.CPW_DATA."Trout: Brook"': {
-            "name" : ["Fish Species", "Water"],
-            "type" : ["VARCHAR(16777216)", "VARCHAR(16777216)"]
-        }
+        )
     }
 
     class SQLResult:
@@ -44,32 +40,44 @@ def test_combine_trout_tables():
 
     mock_session.sql.side_effect = mock_sql
 
-    sproc_elt.combine_trout_tables(mock_session)
+    combine_trout_data.combine_trout_tables(mock_session)
 
-    third_call = """
-    create or replace table STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
-        "Main Species" VARCHAR(250),
-        "Fish Species" VARCHAR(16777216),
-        "Water" VARCHAR(16777216)
-    )
-    """
-
-    fourth_call = """
+    second_call = """
         INSERT INTO STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
-            "Main Species",
-            "Fish Species",
-            "Water"
+            "main_species",
+            "fish_species",
+            "water",
+            "county",
+            "property_name",
+            "ease_of_access",
+            "boating",
+            "fishing_pressure",
+            "stocked",
+            "elevation(ft)",
+            "latitude",
+            "longitude"
         )
 
         select
-            'Brook' as "Main Species",
-            "Fish Species",
-            "Water"
+            'Brook' as "main_species",          
+            "Fish Species ",
+            "Water",
+            "County",
+            "Property name",
+            "Ease of access",
+            "Boating",
+            "Fishing pressure",
+            "Stocked",
+            "Elevation(ft)",
+            "Latitude",
+            "Longitude"
         FROM STORAGE_DATABASE.CPW_DATA."Trout: Brook"
-    """
+        """
 
     def remove_newline_and_tab_chars(x: str):
         return ' '.join(x.split())
+    
+    print(remove_newline_and_tab_chars(second_call))
+    print(remove_newline_and_tab_chars(mock_session.sql.call_args_list[2][0][0]))
 
-    assert remove_newline_and_tab_chars(mock_session.sql.call_args_list[2][0][0]) == remove_newline_and_tab_chars(third_call)
-    assert remove_newline_and_tab_chars(mock_session.sql.call_args_list[3][0][0]) == remove_newline_and_tab_chars(fourth_call)
+    assert remove_newline_and_tab_chars(mock_session.sql.call_args_list[2][0][0]) == remove_newline_and_tab_chars(second_call)

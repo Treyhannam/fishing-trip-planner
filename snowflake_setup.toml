@@ -1,20 +1,45 @@
 [[procedures]]
-fname = "test_function.py"
-function_name = "main"
-procedure_name = ["STORAGE_DATABASE", "CPW_DATA", "test2"]
-packages=[
-            "snowflake-snowpark-python",
-            "pandas"
-        ]
-
-[[procedures]]
-fname = "sproc_elt.py"
+fname = "combine_trout_data.py"
 function_name = "combine_trout_tables"
 procedure_name = ["STORAGE_DATABASE", "CPW_DATA", "sproc_elt"]
 packages=[
             "snowflake-snowpark-python",
             "pandas"
         ]
+
+[[tables]]
+ddl = """
+create table if not exists STORAGE_DATABASE.CPW_DATA.MASTER_ANGLER_AWARD (
+    master_angler_award_id NUMBER(38,0) autoincrement start 0 increment by 1,
+	"angler" VARCHAR(1000),
+	"species" VARCHAR(100),
+	"length" NUMBER(2, 0),
+	"location" VARCHAR(100),
+	"date" VARCHAR(15),
+	"released" VARCHAR(3),
+);
+"""
+table_name = "master_angler_table"
+
+[[tables]]
+ddl = """
+create table if not exists STORAGE_DATABASE.CPW_DATA.STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
+    all_species_id NUMBER(38,0) autoincrement start 0 increment by 1,
+	"Main Species" VARCHAR(250),
+	"Fish Species " VARCHAR(100),
+	"Water" VARCHAR(100),
+	"County" VARCHAR(100),
+	"Property name" VARCHAR(100),
+	"Ease of access" VARCHAR(100),
+	"Boating" VARCHAR(100),
+	"Fishing pressure" VARCHAR(100),
+	"Stocked" VARCHAR(100),
+	"Elevation(ft)" VARCHAR(100),
+	"Latitude" VARCHAR(100),
+	"Longitude" VARCHAR(100)
+);
+"""
+table_name = "all_species_id"
 
 [stage]
 fully_qualified_name = "STORAGE_DATABASE.CPW_DATA.TEST_STAGE"

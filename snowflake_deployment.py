@@ -1,9 +1,8 @@
 """ This script connects to snowflake and creates a stage to store python code for stored procedures
-and then creates the proceedures. Additionally, the log
+and then creates the proceedures. 
 """
 import os
 import sys
-import json
 import toml
 import logging
 
@@ -17,7 +16,7 @@ logging.basicConfig(
     stream=sys.stdout,
 )
 
-logger = logging.getLogger("STORAGE_DATABASE.CPW_DATA.LOG_OUTPUTS")
+logger = logging.getLogger(__name__)
 
 with open("snowflake_setup.toml", "r") as f:
     setup_file = toml.load(f)
@@ -25,12 +24,6 @@ with open("snowflake_setup.toml", "r") as f:
 # Create the base path for procedures
 working_directory = os.getcwd()
 snowflake_folder = os.path.join(working_directory, "src\\snowflake_")
-
-# Connec to the db
-# config_file_path = os.path.join(working_directory, "config.json")
-
-# with open(config_file_path, "r") as config_file:
-#     config_data = json.load(config_file)
 
 builder_obj = Session.builder.configs({
     "account" : os.environ.get('ACCOUNT'),

@@ -1,6 +1,6 @@
 from web_scrapers import master_angler, colorado_fishing_atlas
 from data_processing import clean_master_angler_data, clean_atlas_data
-from snowflake_db import snowflake_writer
+from snowflake_ import snowflake_writer
 
 raw_data = master_angler.MasterAnglerScraper().execute()
 
