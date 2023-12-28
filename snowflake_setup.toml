@@ -7,6 +7,20 @@ packages=[
             "pandas"
         ]
 
+[[tables]]
+ddl = """
+create table if not exists STORAGE_DATABASE.CPW_DATA.MASTER_ANGLER_AWARD (
+    master_angler_award NUMBER(38,0) autoincrement start 0 increment by 1,
+	"angler" VARCHAR(1000),
+	"species" VARCHAR(100),
+	"length" NUMBER(2, 0),
+	"location" VARCHAR(100),
+	"date" VARCHAR(15),
+	"released" VARCHAR(3),
+);
+"""
+table_name = "master_angler_table"
+
 [stage]
 fully_qualified_name = "STORAGE_DATABASE.CPW_DATA.TEST_STAGE"
 stage_database = "STORAGE_DATABASE"
