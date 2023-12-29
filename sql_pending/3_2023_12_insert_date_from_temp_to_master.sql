@@ -4,7 +4,7 @@ INSERT INTO STORAGE_DATABASE.CPW_DATA.MASTER_ANGLER_AWARD (
 	"length",
 	"location",
 	"date",
-	"released",
+	"released"
 )
 SELECT
     "angler",

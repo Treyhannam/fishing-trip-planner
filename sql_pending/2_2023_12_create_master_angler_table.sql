@@ -5,5 +5,5 @@ create or replace table STORAGE_DATABASE.CPW_DATA.MASTER_ANGLER_AWARD (
 	"length" NUMBER(2, 0),
 	"location" VARCHAR(100),
 	"date" VARCHAR(15),
-	"released" VARCHAR(3),
+	"released" VARCHAR(3)
 );
