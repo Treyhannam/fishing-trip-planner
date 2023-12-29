@@ -24,7 +24,7 @@ with open("snowflake_setup.toml", "r") as f:
     setup_file = toml.load(f)
 
 # Create the base path for sql folders
-working_directory = os.getcwd()
+working_directory = os.getenv('GITHUB_WORKSPACE')
 pending_folder = os.path.join(working_directory, "sql_pending")
 success_folder = os.path.join(working_directory, "sql_success")
 
