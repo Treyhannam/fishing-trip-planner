@@ -1,4 +1,4 @@
-create table if not exists STORAGE_DATABASE.CPW_DATA.STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
+create table if not exists STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
     all_species_id NUMBER(38,0) autoincrement start 0 increment by 1,
 	"main_species" varchar(100),
 	"fish_species" varchar(100),
