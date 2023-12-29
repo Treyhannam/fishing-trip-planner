@@ -60,7 +60,7 @@ with builder_obj.create() as session:
 
         # Move to the success folder
         destination_path = os.path.join(success_folder, file)
-        shutil.move(fpath, destination_path)
+        shutil.move(fpath, success_folder)
 
         logger.info(
             f"Moved {file} to success folder"
