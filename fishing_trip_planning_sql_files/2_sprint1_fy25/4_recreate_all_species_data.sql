@@ -1,5 +1,5 @@
 create table if not exists STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
-    all_species_id NUMBER(38,0) autoincrement start 0 increment by 1,
+    "all_species_id" NUMBER(38,0) autoincrement start 0 increment by 1,
 	"main_species" varchar(100),
 	"fish_species" varchar(100),
 	"water" varchar(100),
