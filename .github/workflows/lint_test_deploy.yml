@@ -1,6 +1,6 @@
 name: CI/CD
 
-on: push
+on: [push, pull_request]
     
 jobs:
 
@@ -87,7 +87,12 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
         USER: ${{ secrets.USER }}
 
+    - name: Check for modified files
+      id: git-check
+      run: echo "modified=$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)" >> $GITHUB_OUTPUT
+
     - name: Commit Changes
+      if: steps.git-check.outputs.modified == 'true'
       run: |
         git config --local user.email "actions@github.com"
         git config --local user.name "GitHub Actions"
