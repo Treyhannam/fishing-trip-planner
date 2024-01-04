@@ -84,6 +84,11 @@ with builder_obj.create() as session:
 
             with open(fpath, mode='r') as sql_script:
                 query = sql_script.read()
+
+                logger.info(
+                    f"Running Query \n {query}"
+                )
+
                 result = session.sql(query).collect()
 
             _ = session.sql(f"""
