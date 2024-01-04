@@ -1,6 +1,6 @@
 name: CI/CD
 
-on: push
+on: [push, pull_request]
     
 jobs:
 
@@ -86,14 +86,3 @@ jobs:
         ACCOUNT: ${{ secrets.ACCOUNT }}
         PASSWORD: ${{ secrets.PASSWORD }}
         USER: ${{ secrets.USER }}
-
-    - name: Commit Changes
-      run: |
-        git config --local user.email "actions@github.com"
-        git config --local user.name "GitHub Actions"
-        git add -A
-        git diff-index --quiet HEAD || git commit -m "Commit changes made by Python script"
-        git push
-
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
