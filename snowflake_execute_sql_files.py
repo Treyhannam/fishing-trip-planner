@@ -38,9 +38,9 @@ max_sprint_folder_prefix = str(max(folder_order))+"_*"
 
 max_sprint_folder_search_pattern = os.path.join(sql_folder, max_sprint_folder_prefix)
 
-max_sprint_folder_name = glob.glob(max_sprint_folder_search_pattern)[0]
+max_sprint_folder_path = glob.glob(max_sprint_folder_search_pattern)[0]
 
-max_sprint_folder_path = max_sprint_folder_name
+max_sprint_folder_name = os.path.basename(max_sprint_folder_path)
 
 sprint_sql_files = os.listdir(max_sprint_folder_path)
 
@@ -93,7 +93,7 @@ with builder_obj.create() as session:
 
             insert_query = f"""
             INSERT INTO STORAGE_DATABASE.CPW_DATA.SQL_DEPLOYMENT_HISTORY (project_name, sprint_folder_name, file_name, execution_result)
-            values ('{sql_folder_name}', '{max_sprint_folder_name}', '{file}', '{result[0][0:10_000]}')
+            values ('{sql_folder_name}', '{max_sprint_folder_name}', '{file}', '{result[0][0][0:10_000]}')
             """
 
             logger.info(
