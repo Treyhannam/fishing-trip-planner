@@ -72,8 +72,15 @@ with builder_obj.create() as session:
     for file in sprint_sql_files:
 
         if file not in executed_file_names:
+            logger.info(
+                f"Starting file: {file}"
+            )
             # read and run files
             fpath = os.path.join(max_sprint_folder_path, file)
+
+            logger.info(
+                f"Using file path: {fpath}"
+                )
 
             with open(fpath, mode='r') as sql_script:
                 query = sql_script.read()
