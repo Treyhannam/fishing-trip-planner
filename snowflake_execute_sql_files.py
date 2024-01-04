@@ -91,9 +91,11 @@ with builder_obj.create() as session:
 
                 result = session.sql(query).collect()
 
+            result_as_string = str(result[0]).replace("Row(", "").replace(")", "")
+
             insert_query = f"""
             INSERT INTO STORAGE_DATABASE.CPW_DATA.SQL_DEPLOYMENT_HISTORY (project_name, sprint_folder_name, file_name, execution_result)
-            values ('{sql_folder_name}', '{max_sprint_folder_name}', '{file}', '{result[0][0][0:10_000]}')
+            values ('{sql_folder_name}', '{max_sprint_folder_name}', '{file}', '{result_as_string[0:10_000]}')
             """
 
             logger.info(
