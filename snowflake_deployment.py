@@ -68,5 +68,5 @@ with builder_obj.create() as session:
         set_log_level_result = session.sql(f"ALTER PROCEDURE {new_procedure.name}() SET LOG_LEVEL = INFO").collect()
 
         logger.info(
-            set_log_level_result[0][0]
+            f" Adjusteding log level status: {set_log_level_result[0][0]}"
         )

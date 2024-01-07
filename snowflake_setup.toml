@@ -7,6 +7,16 @@ packages=[
             "pandas"
         ]
 
+[[procedures]]
+fname = "trout_pattern_match.py"
+function_name = "match_fishing_data"
+procedure_name = ["STORAGE_DATABASE", "CPW_DATA", "PATTERN_MATCH"]
+packages=[
+            "snowflake-snowpark-python",
+            "pandas",
+			"recordlinkage"
+        ]
+
 [[tables]]
 ddl = """
 create table if not exists STORAGE_DATABASE.CPW_DATA.MASTER_ANGLER_AWARD (
