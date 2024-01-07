@@ -25,7 +25,7 @@ def combine_trout_tables(session: Session) -> str:
     ).collect()
 
     logger.info(
-        f"Wrote {truncate_result[0][0]} rows from STORAGE_DATABASE.CPW_DATA.ALL_SPECIES"
+        f"Truncated {truncate_result[0][0]} rows from STORAGE_DATABASE.CPW_DATA.ALL_SPECIES"
     )
 
     infomation_schema_df = session.sql(
@@ -41,6 +41,8 @@ def combine_trout_tables(session: Session) -> str:
 
     # Start inserting all the data and populate the Main Species column
     for table_name in infomation_schema_df.TABLE_NAME:
+        logger.info(f"Beginning table: {table_name}")
+
         insert_statement = f"""
         INSERT INTO STORAGE_DATABASE.CPW_DATA.ALL_SPECIES (
             "main_species",
