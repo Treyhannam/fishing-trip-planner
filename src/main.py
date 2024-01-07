@@ -9,7 +9,7 @@ df = clean_master_angler_data.process_master_angler_data(raw_data)
 snowflake_writer.SnowflakeDfWriter().write_table(
     df=df,
     fully_qualified_table_name="STORAGE_DATABASE.CPW_DATA.MASTER_ANGLER_AWARD",
-    overwrite=True,
+    overwrite=False,
 )
 
 fish_species = [
