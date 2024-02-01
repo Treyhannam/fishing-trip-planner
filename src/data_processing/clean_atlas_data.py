@@ -50,6 +50,7 @@ Data as a table...
 Sometimes there may be additional columns that are not always populated. For Pandas dataframes every column needs to have the same number of data. So nulls will be 
 added to maintain that requirement.
 """
+
 import sys
 import logging
 import re

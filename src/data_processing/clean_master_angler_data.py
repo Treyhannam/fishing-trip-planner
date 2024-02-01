@@ -1,6 +1,7 @@
 """ After raw data is pulled from a webscraper it needs to be parsed into a pandas DataFrame
 where it can then be writted into a snowflake table or passed to other processing functions.
 """
+
 import sys
 import logging
 import pandas as pd

@@ -1,5 +1,6 @@
 """Snowflake functions to clean or move data.
 """
+
 import sys
 import logging
 from snowflake.snowpark import Session
