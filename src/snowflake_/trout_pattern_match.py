@@ -1,5 +1,6 @@
 """
 """
+
 import sys
 import logging
 import pandas as pd
@@ -33,8 +34,8 @@ def _clean_data(df: pd.DataFrame, cols=[str]) -> None:
             "(lake|reservoir)", "", regex=True
         )
 
-        df[clean_col_name] = df[clean_col_name].str.replace(
-            "[^a0-zA9-Z ]", "", regex=True
+        df[clean_col_name] = (
+            df[clean_col_name].str.replace("[^a0-zA9-Z ]", "", regex=True).strip()
         )
 
     logger.info("Cleaned Columns")
@@ -66,17 +67,20 @@ def _pattern_match_data(
     species_df.set_index("all_species_id", inplace=True)
     indexer = recordlinkage.Index()
 
-    indexer.block("location", "water")
+    indexer.block("location_clean", "water_clean")
+    indexer.block("location_clean", "property_name_clean")
     indexer.block("species_clean", "main_species")
 
     candidate_links = indexer.index(master_angler_df, species_df)
 
     compare = recordlinkage.Compare()
 
-    compare.string("location", "water", method="jarowinkler", label="jaro_comparison")
     compare.string(
-        "location",
-        "water",
+        "location_clean", "water_clean", method="jarowinkler", label="jaro_comparison"
+    )
+    compare.string(
+        "location_clean",
+        "water_clean",
         method="damerau_levenshtein",
         label="levenshtein_comparison",
     )
@@ -101,19 +105,51 @@ def _select_best_match(compare_vectors: pd.DataFrame) -> pd.DataFrame:
         comparison_df.jaro_comparison + comparison_df.levenshtein_comparison
     )
 
-    matched_comparison_df = comparison_df.loc[comparison_df.total_score >= 1.2]
-
-    best_mtach_index = (
-        matched_comparison_df.groupby(by="master_angler_award_id")
+    best_match_index = (
+        comparison_df.groupby(by="master_angler_award_id")
         .total_score.idxmax()
         .to_list()
     )
 
-    final_match_df = matched_comparison_df.loc[best_mtach_index].copy()
+    final_match_df = comparison_df.loc[best_match_index].copy()
 
     logger.info("Successfully created final pattern match output")
 
     return final_match_df
+
+
+def _add_location_columns(final_df, master_angler_df, species_df):
+    """Adding in the columns that were compared. This will include the raw values and the
+    cleaned value from each data set.
+    """
+    export_df = final_df.merge(
+        master_angler_df.reset_index()[
+            ["master_angler_award_id", "location", "location_clean"]
+        ],
+        on="master_angler_award_id",
+        how="right",
+    ).merge(
+        species_df.reset_index()[
+            ["all_species_id", "main_species", "water", "water_clean"]
+        ],
+        on="all_species_id",
+        how="left",
+    )
+
+    export_df = export_df.rename(
+        columns={
+            "location": "master_location",
+            "location_clean": "master_location_clean",
+            "water": "species_water",
+            "water_clean": "species_water_clean",
+        }
+    )
+
+    export_df[["jaro_comparison", "levenshtein_comparison", "total_score"]] = export_df[
+        ["jaro_comparison", "levenshtein_comparison", "total_score"]
+    ].fillna(0)
+
+    return export_df
 
 
 def _write_table(session: Session, df):
@@ -136,8 +172,22 @@ def _write_table(session: Session, df):
 
 def match_fishing_data(session: Session) -> str:
     """This function exists to orchestrate all the other functions."""
+    # Only want trout data
     master_angler_df = session.sql(
-        "select * from STORAGE_DATABASE.CPW_DATA.MASTER_ANGLER_AWARD"
+        """select
+            *
+        from STORAGE_DATABASE.CPW_DATA.MASTER_ANGLER_AWARD
+        where "species" in (
+        'Cutbow',
+        'Rainbow Trout',
+        'Brown Trout',
+        'Lake Trout',
+        'Brook Trout',
+        'Cutthroat (Native) Trout',
+        'Tiger Trout',
+        'Golden Trout'
+        )
+        """
     ).to_pandas()
     species_df = session.sql(
         "select * from STORAGE_DATABASE.CPW_DATA.ALL_SPECIES"
@@ -152,6 +202,8 @@ def match_fishing_data(session: Session) -> str:
 
     final_df = _select_best_match(compare_vectors)
 
-    _write_table(session, final_df)
+    export_df = _add_location_columns(final_df, master_angler_df, species_df)
 
-    return f"Successfully completed matching process with {len(final_df)}. Review Logs for details."
+    _write_table(session, export_df)
+
+    return f"Successfully completed matching process with {len(export_df)}. Review Logs for details."

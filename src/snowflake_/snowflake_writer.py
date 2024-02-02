@@ -1,6 +1,7 @@
 """ Provides functions to write pandas data into snowflake and automates the connection to the database.
 Additionally can be used to connect to the db for SQL queries using the build_session function
 """
+
 import os
 import sys
 import json

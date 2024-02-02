@@ -16,6 +16,7 @@ _____________________________________________________________
 The functions are dedication paginating through all the data and storing it within a list. From there the list of data can be passed on to 
 other functions to process and store the data.
 """
+
 import re
 import sys
 import logging
