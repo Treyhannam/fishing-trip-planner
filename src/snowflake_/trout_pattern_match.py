@@ -35,8 +35,8 @@ def _clean_data(df: pd.DataFrame, cols=[str]) -> None:
         )
 
         df[clean_col_name] = (
-            df[clean_col_name].str.replace("[^a0-zA9-Z ]", "", regex=True).strip()
-        )
+            df[clean_col_name].str.replace("[^a0-zA9-Z ]", "", regex=True)
+        ).str.strip()
 
     logger.info("Cleaned Columns")
 
