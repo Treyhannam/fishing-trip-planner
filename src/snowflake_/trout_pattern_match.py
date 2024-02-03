@@ -194,7 +194,7 @@ def match_fishing_data(session: Session) -> str:
     ).to_pandas()
 
     _clean_data(master_angler_df, ["location"])
-    _clean_data(species_df, ["water"])
+    _clean_data(species_df, ["water", "property_name"])
 
     _clean_trout_species(master_angler_df)
 
