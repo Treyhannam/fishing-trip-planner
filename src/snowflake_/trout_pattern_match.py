@@ -31,7 +31,25 @@ def _clean_data(df: pd.DataFrame, cols=[str]) -> None:
         df[clean_col_name] = df[col].str.lower()
 
         df[clean_col_name] = df[clean_col_name].str.replace(
-            "(lake|reservoir)", "", regex=True
+            "(chessman|cheeseman)", "cheesman", regex=True
+        )
+
+        df[clean_col_name] = df[clean_col_name].str.replace(
+            "(lake|reservoir|pond|resevoir)", "", regex=True
+        )
+
+        df[clean_col_name] = df[clean_col_name].str.replace(
+            "(11 mile|11mile)", "eleven mile", regex=True
+        )
+
+        df[clean_col_name] = df[clean_col_name].str.replace(
+            "(deckers|cheesman canyon|north fork south platte|dream stream)",
+            "south platte",
+            regex=True,
+        )
+
+        df[clean_col_name] = df[clean_col_name].replace(
+            "spinney", "spinney mountain", regex=False
         )
 
         df[clean_col_name] = (
