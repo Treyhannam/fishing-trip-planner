@@ -35,11 +35,11 @@ def _clean_data(df: pd.DataFrame, cols=[str]) -> None:
         )
 
         df[clean_col_name] = df[clean_col_name].str.replace(
-            "(lake|reservoir|pond|resevoir)", "", regex=True
+            "(lake|reservoir|pond|resevoir|reservior)", "", regex=True
         )
 
         df[clean_col_name] = df[clean_col_name].str.replace(
-            "(11 mile|11mile)", "eleven mile", regex=True
+            "(11 mile|11mile|11-mile)", "elevenmile", regex=True
         )
 
         df[clean_col_name] = df[clean_col_name].str.replace(
