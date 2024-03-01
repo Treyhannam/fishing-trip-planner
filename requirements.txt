@@ -3,4 +3,5 @@ snowflake-snowpark-python[pandas]
 pytest
 black
 thefuzz
+recordlinkage
 toml
