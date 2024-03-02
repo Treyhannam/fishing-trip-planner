@@ -44,12 +44,20 @@ def _clean_data(df: pd.DataFrame, cols=[str]) -> None:
 
         df[clean_col_name] = df[clean_col_name].str.replace(
             "(deckers|cheesman canyon|north fork south platte|dream stream)",
-            "south platte",
+            "south platte river",
             regex=True,
         )
 
+        df[clean_col_name] = df[clean_col_name].apply(
+            lambda x: "south platte river" if "south platte" in x.lower() else x
+        )
+
         df[clean_col_name] = df[clean_col_name].replace(
-            "spinney", "spinney mountain", regex=False
+            ("spinney"), "spinney mountain", regex=False
+        )
+
+        df[clean_col_name] = df[clean_col_name].replace(
+            ("spinney "), "spinney mountain", regex=False
         )
 
         df[clean_col_name] = (
